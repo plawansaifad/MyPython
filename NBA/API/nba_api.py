@@ -36,18 +36,6 @@ HEADERS = {'Host': 'stats.nba.com',
            }
 
 def _api_scrape(json_inp, ndx):
-    """
-    Internal method to streamline the getting of data from the json
-    Args:
-        json_inp (json): json input from our caller
-        ndx (int): index where the data is located in the api
-    Returns:
-        If pandas is present:
-            DataFrame (pandas.DataFrame): data set from ndx within the
-            API's json
-        else:
-            A dictionary of both headers and values from the page
-    """
 
     try:
         headers = json_inp['resultSets'][ndx]['headers']
@@ -70,22 +58,13 @@ def _api_scrape(json_inp, ndx):
 
 
 def _get_json(endpoint, params, referer='scores'):
-    """
-    Internal method to streamline our requests / json getting
-    Args:
-        endpoint (str): endpoint to be called from the API
-        params (dict): parameters to be passed to the API
-    Raises:
-        HTTPError: if requests hits a status code != 200
-    Returns:
-        json (json): json object for selected API call
-    """
+
     h = dict(HEADERS)
    # h['referer'] = 'http://stats.nba.com/{ref}/'.format(ref=referer)
     _get = get(BASE_URL.format(endpoint=endpoint), params=params,
                headers=h)
      #print _get.url
-    print(BASE_URL.format(endpoint=endpoint))
+    #print(BASE_URL.format(endpoint=endpoint))
     _get.raise_for_status()
     return _get.json()
 
@@ -97,20 +76,7 @@ def get_player(first_name,
                season=constants.CURRENT_SEASON,
                only_current=0,
                just_id=True):
-    """
-    Calls our PlayerList class to get a full list of players and then returns
-    just an id if specified or the full row of player information
-    Args:
-        :first_name: First name of the player
-        :last_name: Last name of the player
-        (this is None if the player only has first name [Nene])
-        :only_current: Only wants the current list of players
-        :just_id: Only wants the id of the player
-    Returns:
-        Either the ID or full row of information of the player inputted
-    Raises:
-        :PlayerNotFoundException::
-    """
+
     if last_name is None:
         name = first_name.lower()
     else:
@@ -129,16 +95,6 @@ def get_player(first_name,
         return item
 
 class PlayerList:
-    """
-    Contains a list of all players for a season, if specified, and will only
-    contain current players if specified as well
-    Args:
-        :league_id: ID for the league to look in (Default is 00)
-        :season: Season given to look up
-        :only_current: Restrict lookup to only current players
-    Attributes:
-        :json: Contains the full json dump to play around with
-    """
     _endpoint = 'commonallplayers'
 
     def __init__(self,
