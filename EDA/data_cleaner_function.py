@@ -57,4 +57,20 @@ def drop_null(df, limit):
             print('new shape:', df.shape)
         else:
             print(df.isnull().sum()[i], '%, percentage of missing values of', i ,'less than limit', limit, '%, so we will keep it.')
-    print('New shape after missing value control:', df.shape)
+    print('New shape after missing value control:',df.shape)
+
+# Function for determining the number and percentages of missing values
+def missing (df):
+    missing_number = df.isnull().sum().sort_values(ascending=False)
+    missing_percent = (df.isnull().sum()/df.isnull().count()).sort_values(ascending=False)
+    missing_values = pd.concat([missing_number, missing_percent], axis=1, keys=['Missing_Number', 'Missing_Percent'])
+    return missing_values
+          
+# To view summary information about the column
+def first_look(col):
+    print("column name    : ", col)
+    print("--------------------------------")
+    print("per_of_nulls   : ", "%", round(df[col].isnull().sum()/df.shape[0]*100, 2))
+    print("num_of_nulls   : ", df[col].isnull().sum())
+    print("num_of_uniques : ", df[col].nunique())
+    print(df[col].value_counts(dropna = False))
