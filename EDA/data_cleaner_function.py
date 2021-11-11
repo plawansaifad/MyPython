@@ -60,6 +60,13 @@ class bcolors:
 
 ###############################################################################
 
+# Function for determining the number and percentages of missing values
+
+def missing (df):
+    missing_number = df.isnull().sum().sort_values(ascending=False)
+    missing_percent = (df.isnull().sum()/df.isnull().count()).sort_values(ascending=False)
+    missing_values = pd.concat([missing_number, missing_percent], axis=1, keys=['Missing_Number', 'Missing_Percent'])
+    return missing_values
 def missing(df):
     missing_number = df.isnull().sum().sort_values(ascending=False)
     missing_percent = (df.isnull().sum()/df.isnull().count()).sort_values(ascending=False)*100
@@ -100,7 +107,7 @@ def looking_dataframe(df):
 
     #print(colored("Columns after rename:", attrs=['bold']), list(df.columns),'\n',
     #          colored('-'*79, 'red', attrs=['bold']), sep='')
-
+###############################################################################
 def duplicate_values(df):
     duplicate_values = df.duplicated(subset=None, keep='first').sum()
     if duplicate_values > 0:
@@ -130,17 +137,7 @@ def drop_null(df, limit):
             print(df.isnull().sum()[i], '%, percentage of missing values of', i ,'less than limit', limit, '%, so we will keep it.')
     print('New shape after missing value control:', df.shape)
 
-###############################################################################
-# Function for determining the number and percentages of missing values
-
-def missing (df):
-    missing_number = df.isnull().sum().sort_values(ascending=False)
-    missing_percent = (df.isnull().sum()/df.isnull().count()).sort_values(ascending=False)
-    missing_values = pd.concat([missing_number, missing_percent], axis=1, keys=['Missing_Number', 'Missing_Percent'])
-    return missing_values
-
 # To view summary information about the column
-
 def looking_column(col):
     print("column name    : ", col)
     print("--------------------------------")
@@ -148,3 +145,8 @@ def looking_column(col):
     print("num_of_nulls   : ", df[col].isnull().sum())
     print("num_of_uniques : ", df[col].nunique())
     print(df[col].value_counts(dropna = False))
+    
+def autoEDA(df,limit_drop_null):
+    df = duplicate_values(df)
+    df = drop_null(df,limit_drop_null)
+    return df
