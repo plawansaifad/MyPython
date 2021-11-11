@@ -89,7 +89,7 @@ def looking_dataframe(df):
           colored('-'*79, 'green', attrs=['bold']), sep='')
     print(colored("Number of Uniques:\n", attrs=['bold']), df.nunique(),'\n',
           colored('-'*79, 'green', attrs=['bold']), sep='')
-    print(colored("Duplicate Rows:\n", attrs=['bold']),display( duplicated(df).hide_index()),'\n', 
+    print(colored("Duplicate Rows:\n", attrs=['bold']),duplicated(df).to_string(index=False),'\n', 
           colored('-'*79, 'green', attrs=['bold']), sep='')
     print(colored("Missing Values:\n", attrs=['bold']), missing_values(df),'\n', 
           colored('-'*79, 'green', attrs=['bold']), sep='')
