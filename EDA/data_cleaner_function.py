@@ -76,6 +76,18 @@ def missing(df):
 def missing_values(df):
     return missing(df)[missing(df)['Missing_Number']>0]
 
+def missing_percentage(df):
+    
+    '''A function for showing missing data values'''
+    
+    total = df.isnull().sum().sort_values(
+        ascending=False)[df.isnull().sum().sort_values(ascending=False) != 0]
+    percent = (df.isnull().sum().sort_values(ascending=False) / len(df) *
+               100)[(df.isnull().sum().sort_values(ascending=False) / len(df) *
+                     100) != 0]
+    missing_percentage_values = pd.concat([total, percent], axis=1, keys=['Total', 'Percent'])
+    return missing_percentage_values
+
 def duplicated(df):
     duplicate_number = df.duplicated(subset=None, keep='first').sum()
     duplicate_percent = (duplicate_number/df.shape[0])*100
@@ -83,6 +95,7 @@ def duplicated(df):
     duplicate_values = pd.DataFrame(columns=['Duplicate_Rows', 'Duplicate_Percent'])
     duplicate_values = duplicate_values.append(duplicate_display, ignore_index = True)
     return duplicate_values
+
 ###############################################################################
 
 def looking_dataframe(df):
