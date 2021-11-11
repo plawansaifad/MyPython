@@ -34,7 +34,7 @@ def looking_dataframe(df):
     #df.columns= df.columns.str.lower().str.replace('&', '_').str.replace(' ', '_')
 
     #print(colored("Columns after rename:", attrs=['bold']), list(df.columns),'\n',
-              colored('-'*79, 'red', attrs=['bold']), sep='')
+    #          colored('-'*79, 'red', attrs=['bold']), sep='')
 
 def duplicate_values(df):
     duplicate_values = df.duplicated(subset=None, keep='first').sum()
