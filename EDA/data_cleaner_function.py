@@ -71,7 +71,7 @@ def missing_values(df):
 
 def duplicated(df):
     duplicate_number = df.duplicated(subset=None, keep='first').sum()
-    duplicate_percent = (duplicate_number/df.shape[0])*100
+    duplicate_percent = str((duplicate_number/df.shape[0])*100)
     duplicate_values = pd.concat([duplicate_number, duplicate_percent], axis=1, keys=['Duplicate_Rows', 'Duplicate_Percent'])
     return duplicate_values
 ###############################################################################
