@@ -62,16 +62,23 @@ class bcolors:
 
 def missing(df):
     missing_number = df.isnull().sum().sort_values(ascending=False)
-    missing_percent = (df.isnull().sum()/df.isnull().count()).sort_values(ascending=False)
+    missing_percent = (df.isnull().sum()/df.isnull().count()).sort_values(ascending=False)*100
     missing_values = pd.concat([missing_number, missing_percent], axis=1, keys=['Missing_Number', 'Missing_Percent'])
     return missing_values
 
 def missing_values(df):
     return missing(df)[missing(df)['Missing_Number']>0]
 
+def duplicated(df):
+    duplicate_number = df.duplicated(subset=None, keep='first').sum()
+    duplicate_percent = (duplicate_number/df.shape[0])*100
+    duplicate_values = pd.concat([duplicate_number, duplicate_percent], axis=1, keys=['Duplicate_Rows', 'Duplicate_Percent'])
+    return duplicate_values
 ###############################################################################
 
 def looking_dataframe(df):
+    print(colored('Overview Dataset statistics', attrs=['bold']),'\n',
+          colored('='*79, 'red', attrs=['bold']), sep='')
     print(colored("Shape:", attrs=['bold']), df.shape,'\n',
           f"There is ", df.shape[0], " observation and ", df.shape[1], " columns in the dataset.", '\n',
           colored('-'*79, 'green', attrs=['bold']),
@@ -79,6 +86,8 @@ def looking_dataframe(df):
     print(df.info(), '\n', 
           colored('-'*79, 'green', attrs=['bold']), sep='')
     print(colored("Number of Uniques:\n", attrs=['bold']), df.nunique(),'\n',
+          colored('-'*79, 'green', attrs=['bold']), sep='')
+    print(colored("Duplicate Rows:\n", attrs=['bold']), duplicated(df),'\n', 
           colored('-'*79, 'green', attrs=['bold']), sep='')
     print(colored("Missing Values:\n", attrs=['bold']), missing_values(df),'\n', 
           colored('-'*79, 'green', attrs=['bold']), sep='')
