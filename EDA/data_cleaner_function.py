@@ -74,16 +74,16 @@ def missing_values(df):
 def looking_dataframe(df):
     print(colored("Shape:", attrs=['bold']), df.shape,'\n',
           f"There is ", df.shape[0], " observation and ", df.shape[1], " columns in the dataset.", '\n',
-          colored('-'*79, bcolors.CGREEN2, attrs=['bold']),
+          colored('-'*79, 'green', attrs=['bold']),
           colored("\nInfo:\n", attrs=['bold']), sep='')
     print(df.info(), '\n', 
-          colored('-'*79, 'red', attrs=['bold']), sep='')
+          colored('-'*79, 'green', attrs=['bold']), sep='')
     print(colored("Number of Uniques:\n", attrs=['bold']), df.nunique(),'\n',
-          colored('-'*79, 'red', attrs=['bold']), sep='')
+          colored('-'*79, 'green', attrs=['bold']), sep='')
     print(colored("Missing Values:\n", attrs=['bold']), missing_values(df),'\n', 
-          colored('-'*79, 'red', attrs=['bold']), sep='')
+          colored('-'*79, 'green', attrs=['bold']), sep='')
     print(colored("All Columns:", attrs=['bold']), list(df.columns),'\n', 
-          colored('-'*79, 'red', attrs=['bold']), sep='')
+          colored('-'*79, 'green', attrs=['bold']), sep='')
 
     #df.columns= df.columns.str.lower().str.replace('&', '_').str.replace(' ', '_')
 
