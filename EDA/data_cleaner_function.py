@@ -147,6 +147,6 @@ def looking_column(col):
     print(df[col].value_counts(dropna = False))
     
 def autoEDA(df,limit_drop_null):
-    df = duplicate_values(df)
-    df = drop_null(df,limit_drop_null)
-    return df
+    duplicate_values(df)
+    drop_null(df,limit_drop_null)
+
