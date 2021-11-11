@@ -71,7 +71,7 @@ def missing_values(df):
 
 def duplicated(df):
     duplicate_number = df.duplicated(subset=None, keep='first').sum()
-    duplicate_percent = str((duplicate_number/df.shape[0])*100)
+    duplicate_percent = (duplicate_number/df.shape[0])*100
     duplicate_display = {'Duplicate_Percent': duplicate_percent,'Duplicate_Rows': duplicate_number}
     duplicate_values = pd.DataFrame(columns=['Duplicate_Rows', 'Duplicate_Percent'])
     duplicate_values = duplicate_values.append(duplicate_display, ignore_index = True)
@@ -89,7 +89,7 @@ def looking_dataframe(df):
           colored('-'*79, 'green', attrs=['bold']), sep='')
     print(colored("Number of Uniques:\n", attrs=['bold']), df.nunique(),'\n',
           colored('-'*79, 'green', attrs=['bold']), sep='')
-    print(colored("Duplicate Rows:\n", attrs=['bold']),duplicated(df).to_string(index=False),'\n', 
+    print(colored("Duplicate Rows:\n", attrs=['bold']),duplicated(df),'\n', 
           colored('-'*79, 'green', attrs=['bold']), sep='')
     print(colored("Missing Values:\n", attrs=['bold']), missing_values(df),'\n', 
           colored('-'*79, 'green', attrs=['bold']), sep='')
