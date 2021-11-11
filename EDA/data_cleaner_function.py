@@ -134,7 +134,7 @@ def drop_null(df, limit):
             df.drop(i, axis=1, inplace=True)
             print('new shape:', df.shape)
         else:
-            print(df.isnull().sum()[i], '%, percentage of missing values of', i ,'less than limit', limit, '%, so we will keep it.')
+            print(df.isnull().sum()[i]/df.shape[0]*100, '%, percentage of missing values of', i ,'less than limit', limit, '%, so we will keep it.')
     print('New shape after missing value control:', df.shape)
 
 # To view summary information about the column
