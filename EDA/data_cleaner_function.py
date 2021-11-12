@@ -121,6 +121,9 @@ def looking_dataframe(df):
     #print(colored("Columns after rename:", attrs=['bold']), list(df.columns),'\n',
     #          colored('-'*79, 'red', attrs=['bold']), sep='')
 ###############################################################################
+def change_data_type(df,dict_of_change):
+    df = df.astype(dict_of_change, errors='ignore')
+    
 def duplicate_values(df):
     duplicate_values = df.duplicated(subset=None, keep='first').sum()
     if duplicate_values > 0:
